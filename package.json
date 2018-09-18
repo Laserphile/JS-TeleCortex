@@ -13,7 +13,8 @@
   "author": "Jonathan Van Buren",
   "license": "MIT",
   "dependencies": {
-    "lodash": "4.17.11"
+    "lodash": "4.17.10",
+    "serialport": "7.0.2"
   },
   "devDependencies": {
     "@babel/cli": "7.1.0",
