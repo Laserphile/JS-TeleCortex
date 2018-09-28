@@ -4,7 +4,7 @@
   "description": "JS rewrite of TeleCortex",
   "main": "dist",
   "scripts": {
-    "start": "nodemon --exec babel-node server.js"
+    "start": "nodemon --exec babel-node main.js"
   },
   "repository": {
     "type": "git",
