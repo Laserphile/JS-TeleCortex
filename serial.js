@@ -1,14 +1,14 @@
 import util from 'util';
-import { magenta, cyan, red } from 'chalk';
 import SerialPort from 'serialport';
 import Readline from '@serialport/parser-readline';
-import log from './logging'
+import { omit, pick } from 'lodash/object'
 
-const assignEventHandlers = (parser) => {
-  parser.on('open', () => log(cyan('[Open] Port opened')));
-  parser.on('data', (data) => log(cyan('[Data]'), magenta(data.toString('ascii'))));
-  parser.on('close', () => log(cyan('[Close] Port closed')));
-  parser.on('error', (err) => log(red(`[Error] ${err.message}`)));
+const assignEventHandlers = (parser, handlers) => {
+  Object.keys(handlers).forEach(
+    (key) => {
+      parser.on( key, handlers[key])
+    }
+  );
 };
 
 const createCallbackHandler = (reject, resolve, resolveVal) => (err) => {
@@ -16,10 +16,11 @@ const createCallbackHandler = (reject, resolve, resolveVal) => (err) => {
   resolve(resolveVal);
 };
 
-const setUpConnection = (portPath, options) => {
+const setUpConnection = (portPath, options, handlers) => {
   const port = new SerialPort(portPath, options);
   const parser = port.pipe(new Readline({ delimiter: '\n' }));
-  assignEventHandlers(parser);
+  assignEventHandlers(port, pick(handlers, ['open', 'close', 'error']));
+  assignEventHandlers(parser, omit(handlers, ['open', 'close', 'error']));
 
   port.write[util.promisify.custom] = (msg) => new Promise((resolve, reject) => port.write(msg, createCallbackHandler(reject, resolve, msg)));
   port.writeAsync = util.promisify(port.write);
