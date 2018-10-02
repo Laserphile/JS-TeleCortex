@@ -55,4 +55,4 @@ const output = {
   aTriangle : triangleMapper(aTriangleLayout, distanceBetweenLed),
   bTriangle : triangleMapper(bTriangleLayout, distanceBetweenLed),
 };
-fs.writeFileSync('./triangles.json', JSON.stringify(output) , 'utf-8');
+fs.writeFileSync('./shapes/triangles.json', JSON.stringify(output) , 'utf-8');
