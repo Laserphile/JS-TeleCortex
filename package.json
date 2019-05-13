@@ -13,11 +13,11 @@
   "author": "Jonathan Van Buren",
   "license": "MIT",
   "dependencies": {
-    "@serialport/binding-mock": "2.0.1",
+    "lodash": "^4.17.11",
+     "@serialport/binding-mock": "2.0.1",
     "@serialport/parser-readline": "2.0.1",
     "@serialport/stream": "2.0.1",
     "chalk": "2.4.1",
-    "lodash": "4.17.10",
     "serialport": "7.0.2"
   },
   "devDependencies": {
